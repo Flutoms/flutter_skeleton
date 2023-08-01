@@ -1,7 +1,7 @@
-import 'package:midlr/utils/extensions/global_extensions.dart';
+import 'package:dado_vendor/utils/extensions/global_extensions.dart';
 
 // PNGs
-String alajoLogo = 'alajo_logo'.png;
+String appLogoPng = 'appLogo'.png;
 
 // SVGs
-String midlrLogo = 'midlr_logo'.svg;
+String appLogo = 'appLogo'.svg;
