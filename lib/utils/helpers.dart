@@ -1,20 +1,20 @@
 import 'dart:developer';
 
 import 'package:change_case/change_case.dart';
+import 'package:dado_vendor/database/database.dart';
+import 'package:dado_vendor/dependency/get_it.dart';
+import 'package:dado_vendor/dependency/navigation/navigator_routes.dart';
+import 'package:dado_vendor/utils/size_config.dart';
+import 'package:dado_vendor/utils/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gap/gap.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
-import 'package:midlr/database/database.dart';
-import 'package:midlr/dependency/get_it.dart';
-import 'package:midlr/dependency/navigation/global_router_exports.dart';
-import 'package:midlr/utils/size_config.dart';
-import 'package:midlr/utils/text_styles.dart';
 import 'package:pinput/pinput.dart';
 
+import '../dependency/navigation/global_router_exports.dart';
 import 'colors.dart';
 
 void globalToast(String message) => Fluttertoast.showToast(
@@ -72,19 +72,14 @@ PinTheme pinTheme() {
   );
 }
 
-void checkToken() async {
+
+void checkStatus() async {
   try {
     await getItInstance<TempDatabaseImpl>().getUserToken().then((userToken) {
       if (userToken.isNotEmpty) {
-        bool hasExpired = JwtDecoder.isExpired(userToken);
-        if (hasExpired) {
-          getItInstance<TempDatabaseImpl>().clearUserData();
-          // globalNavigateTo(route: Routes.login);
-        } else {
-          // globalNavigateTo(route: Routes.domain);
-        }
+        globalNavigateTo(route: Routes.getStartedScreen);
       } else {
-        // globalNavigateTo(route: Routes.login);
+        globalNavigateUntil(route: Routes.getStartedScreen);
       }
     });
   } catch (_) {}
